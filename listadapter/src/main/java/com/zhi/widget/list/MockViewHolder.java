@@ -5,7 +5,7 @@ import android.support.v4.widget.Space;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MockViewHolder extends ViewHolder<Item> {
+public final class MockViewHolder extends ViewHolder<Item> {
 
     @NonNull
     public static ViewHolder<?> createViewHolder(@NonNull ViewGroup parent) {

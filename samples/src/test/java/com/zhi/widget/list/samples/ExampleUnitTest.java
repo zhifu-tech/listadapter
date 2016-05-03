@@ -1,4 +1,4 @@
-package com.zhi.listadapter;
+package com.zhi.widget.list.samples;
 
 import org.junit.Test;
 

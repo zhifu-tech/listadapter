@@ -1,11 +1,19 @@
 package com.zhi.widget.list;
 
 import android.support.annotation.CallSuper;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+
+import com.zhi.widget.list.uti.Logs;
+
+import java.lang.reflect.Constructor;
 
 import static android.widget.AdapterView.INVALID_POSITION;
+import static com.zhi.widget.list.ListAdapter.TAG;
 
 /** A View Holder is a controller that's used to load and set data in list view. */
 public abstract class ViewHolder<T extends Item> {
@@ -87,5 +95,20 @@ public abstract class ViewHolder<T extends Item> {
     /** Callback to be invoked when this view holder is clicked. */
     public interface ViewHolderClickListener {
         boolean onViewHolderClick(@NonNull ViewHolder vh);
+    }
+
+    public static ViewHolder of(@NonNull Class<? extends ViewHolder> clazz, @LayoutRes int layout,
+            @NonNull ViewGroup parent, @NonNull LayoutInflater inflater) {
+        ViewHolder vh = null;
+        try {
+            final View view = inflater.inflate(layout, parent, false);
+            final Constructor<? extends ViewHolder> constructor = clazz.getConstructor(View.class);
+            vh = constructor.newInstance(view);
+            Logs.v(TAG, "Create view holder %1$s", vh);
+            return vh;
+        } catch (Exception e) {
+            Logs.v(TAG, "Error happened when creating view holder %1$s", e);
+        }
+        return vh;
     }
 }

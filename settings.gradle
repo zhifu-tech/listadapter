@@ -1,1 +1,1 @@
-include ':listadapter'
+include ':listadapter', ':samples'

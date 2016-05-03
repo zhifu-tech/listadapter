@@ -23,7 +23,13 @@ task clean(type: Delete) {
 }
 
 ext {
+    compileSdkVersion = 23
+    buildToolsVersion = '23.0.2'
+    minSdkVersion = 19
+    targetSdkVersion = 23
     supportVersion = '23.2.0'
+
     SupportV4 = 'com.android.support:support-v4:' + supportVersion;
     SupportAnnotation = 'com.android.support:support-annotations:' + supportVersion;
+    SupportAppCompat = 'com.android.support:appcompat-v7:' + supportVersion;
 }

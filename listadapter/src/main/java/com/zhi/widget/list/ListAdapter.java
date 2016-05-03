@@ -2,10 +2,13 @@ package com.zhi.widget.list;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.UiThread;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+
+import com.zhi.widget.list.uti.Logs;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class ListAdapter extends BaseAdapter implements ViewHolderFactory {
+    public static final String TAG = Logs.makeLogTag("ListAdapter");
     /** List body items. */
     protected final List<Item> mBody;
     /** List header items. */
@@ -57,6 +61,11 @@ public abstract class ListAdapter extends BaseAdapter implements ViewHolderFacto
     /** Get list view body items count. */
     public final int getBordyCount() {
         return mBody.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @ViewType
@@ -285,6 +294,9 @@ public abstract class ListAdapter extends BaseAdapter implements ViewHolderFacto
         if (convertView == null
                 || !(convertView.getTag() instanceof ViewHolder)
                 || !((ViewHolder) convertView.getTag()).accept(item.getViewType())) {
+            // There're two ways to create a ViewHolder instance.
+            // 1. Use a custom ViewHolderFactory.
+            // 2. Use a Factory method to create a view holder in subclass.
             if (mFactory != null) {
                 vh = mFactory.getViewHolder(item.getViewType(), parent);
             }
@@ -292,6 +304,7 @@ public abstract class ListAdapter extends BaseAdapter implements ViewHolderFacto
                 vh = getViewHolder(item.getViewType(), parent);
             }
             if (vh == null) {
+                // If error happened, a mock holder will be created.
                 vh = MockViewHolder.createViewHolder(parent);
             }
             convertView = vh.view;
@@ -304,6 +317,7 @@ public abstract class ListAdapter extends BaseAdapter implements ViewHolderFacto
         return convertView;
     }
 
+    @UiThread
     @Nullable
     @Override
     public ViewHolder getViewHolder(@ViewType int viewType, @NonNull ViewGroup parent) {
