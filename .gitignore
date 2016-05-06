@@ -24,4 +24,4 @@ gen/
 .idea/workspace.xml
 *.DS_Store
 .idea/
-gradle/
+zhivolley/

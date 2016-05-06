@@ -28,8 +28,11 @@ ext {
     minSdkVersion = 19
     targetSdkVersion = 23
     supportVersion = '23.2.0'
+    minifyEnabled = false
 
     SupportV4 = 'com.android.support:support-v4:' + supportVersion;
     SupportAnnotation = 'com.android.support:support-annotations:' + supportVersion;
     SupportAppCompat = 'com.android.support:appcompat-v7:' + supportVersion;
+    testCompile = 'junit:junit:4.12'
+    apacheHttpLegacy = 'org.apache.http.legacy'
 }
