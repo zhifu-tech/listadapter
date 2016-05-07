@@ -1,5 +1,6 @@
 include ':listadapter', ':samples'
 
-
+include(':volley')
+project(':volley').projectDir = new File("zhivolley/volley")
 include ':zhivolley'
 project(':zhivolley').projectDir = new File("zhivolley/zhivolley");

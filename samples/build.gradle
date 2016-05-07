@@ -26,4 +26,5 @@ dependencies {
     compile rootProject.ext.SupportV4
     compile rootProject.ext.SupportAnnotation
     compile project(':listadapter')
+    compile project(':zhivolley')
 }

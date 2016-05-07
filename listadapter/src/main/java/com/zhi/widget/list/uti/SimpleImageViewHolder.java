@@ -53,7 +53,7 @@ public class SimpleImageViewHolder extends ViewHolder<SimpleImageViewHolder.Imag
     }
 
     public static class SimpleImageLoader implements ImageLoader {
-        private int defaultResId;
+        protected int defaultResId;
 
         @Override
         public ImageLoader load(@Nullable CharSequence imageUrl) {

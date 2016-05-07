@@ -62,7 +62,7 @@ public class ZhiListFragment extends BaseFragment {
     public void mockImageItems() {
         mListAdapter.setNotifyOnChange(false);
         for (int i = 0; i < 10; i++) {
-            mListAdapter.addBodyItem(new SimpleImageModel("Body Image #" + i,
+            mListAdapter.addBodyItem(new SimpleImageModel("http://img15.3lian.com/2015/a1/10/d/111.jpg",
                     R.drawable.image_default, VIEW_TYPE_SIMPLE_IMAGE));
         }
         mListAdapter.notifyDataSetChanged();
@@ -71,7 +71,7 @@ public class ZhiListFragment extends BaseFragment {
     public void mockGroupItems() {
         mListAdapter.setNotifyOnChange(false);
         final Item adsText = new SimpleTextModel("Ads Text item", VIEW_TYPE_ADS_TEXT);
-        final Item adsImage = new SimpleImageModel("Ads Image", R.drawable.image_ads, VIEW_TYPE_ADS_IMAGE);
+        final Item adsImage = new SimpleImageModel("http://pic22.nipic.com/20120716/10469458_101024533116_2.jpg", R.drawable.image_ads, VIEW_TYPE_ADS_IMAGE);
 
         final SimpleGroupItem groupItem = new SimpleGroupItem(VIEW_TYPE_ADS_GROUP);
         final ChildItem childItem0 = new SimpleChildItem(adsText, groupItem);
