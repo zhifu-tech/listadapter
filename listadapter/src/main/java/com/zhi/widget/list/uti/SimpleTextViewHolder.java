@@ -14,13 +14,14 @@ public class SimpleTextViewHolder extends ViewHolder<SimpleTextViewHolder.TextIt
 
     public final TextView mTextView;
 
-    public SimpleTextViewHolder(@NonNull View view, @IdRes int resId) {
+    public SimpleTextViewHolder(@NonNull View view) {
         super(view);
-        mTextView = findView(resId <= 0 ? android.R.id.text1 : resId);
+        mTextView = findView(getTextResId());
     }
 
-    public SimpleTextViewHolder(@NonNull View view) {
-        this(view, -1);
+    @IdRes
+    protected int getTextResId() {
+        return android.R.id.text1;
     }
 
     @Override

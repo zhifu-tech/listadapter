@@ -1,7 +1,6 @@
 package com.zhi.widget.list.samples;
 
 import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -24,7 +23,6 @@ public class BaseFragment extends Fragment {
      * @see #onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
      * @see #onViewCreated(android.view.View, android.os.Bundle)
      */
-    @Nullable
     @SuppressWarnings("unchecked")
     protected <T extends View> T findView(@IdRes int id) {
         if (getView() != null) {

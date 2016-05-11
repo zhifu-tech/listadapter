@@ -13,6 +13,7 @@ public abstract class ChildViewHolder<T extends ChildItem> extends ViewHolder<T>
         implements ViewHolderFactory {
 
     protected ViewHolderFactory mFactory;
+    protected ViewHolder mCurrentChildViewHolder;
 
     public ChildViewHolder(@NonNull View view) {
         this(view, null);
@@ -74,6 +75,7 @@ public abstract class ChildViewHolder<T extends ChildItem> extends ViewHolder<T>
             }
         }
         vh.bindView(item.getItem(), position);
+        mCurrentChildViewHolder = vh;
     }
 
     protected void onBindGroupItemChanged(@NonNull GroupItem parent) {
@@ -100,6 +102,12 @@ public abstract class ChildViewHolder<T extends ChildItem> extends ViewHolder<T>
         for (View view : removed) {
             views.removeView(view);
         }
+    }
+
+    @Override
+    protected void onBindNoChanged() {
+        super.onBindNoChanged();
+        mCurrentChildViewHolder.onBindNoChanged();
     }
 
     @UiThread

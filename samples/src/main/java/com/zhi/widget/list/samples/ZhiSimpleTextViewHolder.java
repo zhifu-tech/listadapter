@@ -10,4 +10,9 @@ public class ZhiSimpleTextViewHolder extends SimpleTextViewHolder {
     public ZhiSimpleTextViewHolder(@NonNull View view) {
         super(view);
     }
+
+    @Override
+    protected int getTextResId() {
+        return R.id.text;
+    }
 }

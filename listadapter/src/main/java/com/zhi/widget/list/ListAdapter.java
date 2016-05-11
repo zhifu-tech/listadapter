@@ -59,7 +59,7 @@ public abstract class ListAdapter extends BaseAdapter implements ViewHolderFacto
     }
 
     /** Get list view body items count. */
-    public final int getBordyCount() {
+    public final int getBodyCount() {
         return mBody.size();
     }
 
@@ -243,6 +243,13 @@ public abstract class ListAdapter extends BaseAdapter implements ViewHolderFacto
         return this;
     }
 
+    /** Removes the specified item from the list body. */
+    public final ListAdapter removeBodyItem(int index) {
+        mBody.remove(index);
+        if (mNotifyOnChange) notifyDataSetChanged();
+        return this;
+    }
+
     /** Removes the specified item from the list headers. */
     public final ListAdapter removeHeaderItem(@NonNull Item item) {
         mHeader.remove(item);
@@ -250,9 +257,23 @@ public abstract class ListAdapter extends BaseAdapter implements ViewHolderFacto
         return this;
     }
 
+    /** Removes the specified item from the list headers. */
+    public final ListAdapter removeHeaderItem(int index) {
+        mHeader.remove(index);
+        if (mNotifyOnChange) notifyDataSetChanged();
+        return this;
+    }
+
     /** Removes the specified item from the list footers. */
     public final ListAdapter removeFooterItem(@NonNull Item item) {
         mFooter.remove(item);
+        if (mNotifyOnChange) notifyDataSetChanged();
+        return this;
+    }
+
+    /** Removes the specified item from the list footers. */
+    public final ListAdapter removeFooterItem(int index) {
+        mFooter.remove(index);
         if (mNotifyOnChange) notifyDataSetChanged();
         return this;
     }

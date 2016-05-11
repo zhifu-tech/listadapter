@@ -4,7 +4,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,63 +11,68 @@ import com.zhi.widget.list.Item;
 import com.zhi.widget.list.ViewHolder;
 
 public class SimpleImageViewHolder extends ViewHolder<SimpleImageViewHolder.ImageItem> {
+    @NonNull
     public final ImageLoader loader;
+    @NonNull
     public final ImageView imageView;
 
     public SimpleImageViewHolder(@NonNull View view) {
-        this(view, 0, null);
+        super(view);
+        loader = getImageLoader();
+        imageView = findView(getImageViewResId());
     }
 
-    public SimpleImageViewHolder(@NonNull View view, @IdRes int resId, @Nullable ImageLoader loader) {
-        super(view);
-        imageView = findView(resId <= 0 ? android.R.id.icon : resId);
-        this.loader = loader == null ? new SimpleImageLoader() : loader;
+    @IdRes
+    protected int getImageViewResId() {
+        return android.R.id.icon1;
+    }
+
+    @NonNull
+    protected ImageLoader getImageLoader() {
+        return ImageLoader.RESOURCE_LOADER;
     }
 
     @Override
     protected void onBindItemChanged(@Nullable ImageItem oldItem, @NonNull ImageItem item) {
         super.onBindItemChanged(oldItem, item);
-        if (oldItem == null
-                || TextUtils.isEmpty(oldItem.getImageUrl())
-                || !TextUtils.equals(oldItem.getImageUrl(), item.getImageUrl())) {
-            loader.load(item.getImageUrl()).with(item.getDefaultResId()).into(imageView);
+        loader.load(item, imageView);
+    }
+
+    @Override
+    protected void onBindNoChanged() {
+        super.onBindNoChanged();
+        if (item instanceof ImageGifItem) {
+            loader.load(item, imageView);
         }
     }
 
     public interface ImageItem extends Item {
         @DrawableRes
-        int getDefaultResId();
+        int getImageRes();
+    }
 
-        CharSequence getImageUrl();
+    public interface ImageItemUrl extends ImageItem {
+        @Nullable
+        String getImageUrl();
+    }
+
+    public interface ImageGifItem extends ImageItemUrl {
+        @Nullable
+        String getImageGif();
     }
 
     public interface ImageLoader {
+        void load(@NonNull ImageItem item, @NonNull ImageView imageView);
 
-        ImageLoader load(@Nullable CharSequence imageUrl);
-
-        ImageLoader with(@DrawableRes int defaultResId);
-
-        void into(@NonNull ImageView imageView);
-
-    }
-
-    public static class SimpleImageLoader implements ImageLoader {
-        protected int defaultResId;
-
-        @Override
-        public ImageLoader load(@Nullable CharSequence imageUrl) {
-            return this;
-        }
-
-        @Override
-        public ImageLoader with(@DrawableRes int defaultResId) {
-            this.defaultResId = defaultResId;
-            return this;
-        }
-
-        @Override
-        public void into(@NonNull ImageView imageView) {
-            imageView.setImageResource(defaultResId);
-        }
+        ImageLoader RESOURCE_LOADER = new ImageLoader() {
+            @Override
+            public void load(@NonNull ImageItem item, @NonNull ImageView imageView) {
+                if (item.getImageRes() > 0) {
+                    imageView.setImageResource(item.getImageRes());
+                } else {
+                    imageView.setImageBitmap(null);
+                }
+            }
+        };
     }
 }

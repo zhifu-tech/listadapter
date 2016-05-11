@@ -1,37 +1,19 @@
 package com.zhi.widget.list.uti;
 
 import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 
 import com.zhi.widget.list.ViewType;
 import com.zhi.widget.list.uti.SimpleImageViewHolder.ImageItem;
 
-public class SimpleImageModel extends SimpleItem<CharSequence> implements ImageItem {
+public class SimpleImageModel extends SimpleItem<Integer> implements ImageItem {
 
-    @DrawableRes
-    public final int defaultResId;
-
-    public SimpleImageModel(@NonNull CharSequence imageUrl, @DrawableRes int defaultResId,
-            @ViewType int viewType) {
-        super(imageUrl, viewType);
-        this.defaultResId = defaultResId;
+    public SimpleImageModel(@DrawableRes int resId, @ViewType int viewType) {
+        super(resId, viewType);
     }
 
     @Override
     @DrawableRes
-    public int getDefaultResId() {
-        return defaultResId;
-    }
-
-    @Override
-    public CharSequence getImageUrl() {
+    public int getImageRes() {
         return data;
-    }
-
-    @Override
-    public String toString() {
-        return "SimpleImageModel{" +
-                "defaultResId=" + defaultResId +
-                "} " + super.toString();
     }
 }
