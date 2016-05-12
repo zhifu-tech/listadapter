@@ -122,6 +122,24 @@ public abstract class ListAdapter extends BaseAdapter implements ViewHolderFacto
         return Item.NULL;
     }
 
+    /** Get item index in this adapter */
+    public final int getItemIndex(@NonNull Item item) {
+        int res = 0;
+        int index = mHeader.indexOf(item);
+        if (index == -1) {
+            res += mHeader.size();
+            index = mBody.indexOf(item);
+        }
+        if (index == -1) {
+            res += mBody.size();
+            index = mFooter.indexOf(item);
+        }
+        if (index != -1) {
+            res += index;
+        }
+        return res;
+    }
+
     @Override
     public final void notifyDataSetChanged() {
         super.notifyDataSetChanged();
@@ -138,14 +156,17 @@ public abstract class ListAdapter extends BaseAdapter implements ViewHolderFacto
                 // changed item is visible. just update it.
                 final int viewCount = listView.getChildCount();
                 for (int i = 0; i < viewCount; i++) {
-                    final View child = listView.getChildAt(0);
+                    final View child = listView.getChildAt(i);
                     if (child.getTag() instanceof ViewHolder) {
                         final ViewHolder vh = (ViewHolder) child.getTag();
                         if (vh.position == position) {
                             if (vh.accept(changedItem.getViewType())) {
                                 vh.bindView(changedItem, position);
+                                Logs.d(TAG, "%1$d item is changed", position);
+                                break;
                             } else {
                                 notifyDataSetChanged();
+                                Logs.d(TAG, "notifyDataSetChanged called with :%1$d item is changed", position);
                                 break;
                             }
                         }
@@ -166,6 +187,13 @@ public abstract class ListAdapter extends BaseAdapter implements ViewHolderFacto
         return this;
     }
 
+    /** Sets the body item. */
+    public final ListAdapter setBodyItem(int index, @NonNull Item item) {
+        mBody.set(index, item);
+        if (mNotifyOnChange) notifyDataSetChanged();
+        return this;
+    }
+
     /** Adds the body item. */
     public final ListAdapter addBodyItem(@NonNull Item item) {
         mBody.add(item);
@@ -173,9 +201,23 @@ public abstract class ListAdapter extends BaseAdapter implements ViewHolderFacto
         return this;
     }
 
+    /** Sets the header item. */
+    public final ListAdapter setHeaderItem(int index, @NonNull Item item) {
+        mHeader.set(index, item);
+        if (mNotifyOnChange) notifyDataSetChanged();
+        return this;
+    }
+
     /** Adds the header item. */
     public final ListAdapter addHeaderItem(@NonNull Item item) {
         mHeader.add(item);
+        if (mNotifyOnChange) notifyDataSetChanged();
+        return this;
+    }
+
+    /** Sets the footer item */
+    public final ListAdapter setFooterItem(int index, @NonNull Item item) {
+        mFooter.set(index, item);
         if (mNotifyOnChange) notifyDataSetChanged();
         return this;
     }

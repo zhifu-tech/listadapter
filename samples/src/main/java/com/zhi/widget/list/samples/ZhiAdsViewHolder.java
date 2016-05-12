@@ -46,7 +46,7 @@ public class ZhiAdsViewHolder extends ChildViewHolder<ChildItem> {
             case VIEW_TYPE_ADS_IMAGE:
             case VIEW_TYPE_ADS_IMAGE_URL:
             case VIEW_TYPE_ADS_IMAGE_GIF:
-                vh = of(ZhiSimpleImageViewHolder.class,
+                vh = of(ZhiNetworkImageViewHolder.class,
                         R.layout.item_simple_image, parent, inflater);
                 break;
 

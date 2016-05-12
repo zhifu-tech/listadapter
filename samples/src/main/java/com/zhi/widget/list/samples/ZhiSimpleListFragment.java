@@ -21,6 +21,7 @@ import com.zhi.widget.list.uti.SimpleTextModel;
 import static com.zhi.widget.list.samples.ZhiListAdapter.VIEW_TYPE_SIMPLE_IMAGE;
 import static com.zhi.widget.list.samples.ZhiListAdapter.VIEW_TYPE_SIMPLE_IMAGE_GIF;
 import static com.zhi.widget.list.samples.ZhiListAdapter.VIEW_TYPE_SIMPLE_IMAGE_URL;
+import static com.zhi.widget.list.samples.ZhiListAdapter.VIEW_TYPE_SIMPLE_TEXT;
 import static com.zhi.widget.list.samples.ZhiListAdapter.VIEW_TYPE_SIMPLE_TEXT_HEADER;
 
 public class ZhiSimpleListFragment extends BaseFragment implements View.OnClickListener {
@@ -173,7 +174,7 @@ public class ZhiSimpleListFragment extends BaseFragment implements View.OnClickL
             for (int i = 0; i < count; i++) {
                 if (mTypeText.isChecked()) {
                     final Item headerItem = new SimpleTextModel("I'm a BODY item with index " + (index + i),
-                            VIEW_TYPE_SIMPLE_TEXT_HEADER);
+                            VIEW_TYPE_SIMPLE_TEXT);
                     mListAdapter.addBodyItem(headerItem);
                 }
 

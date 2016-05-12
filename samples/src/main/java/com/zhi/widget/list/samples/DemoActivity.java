@@ -152,7 +152,35 @@ public class DemoActivity extends BaseActivity implements OnNavigationItemSelect
             }
             mCurrentFragment = f;
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_update) {
+            ZhiUpdateListFragment f = findFragment(ZhiUpdateListFragment.TAG);
+            if (f == null) {
+                f = ZhiUpdateListFragment.newInstance();
+                ft.add(R.id.container, f, ZhiUpdateListFragment.TAG);
+                if (mCurrentFragment != null && !mCurrentFragment.isHidden()) {
+                    ft.hide(mCurrentFragment);
+                }
+                ft.commit();
+
+            } else if (f.isHidden()) {
+                if (mCurrentFragment != null && !mCurrentFragment.isHidden()) {
+                    ft.hide(mCurrentFragment);
+                }
+                ft.show(f).commit();
+            } else if (f == mCurrentFragment) {
+                Logs.d(TAG, "fragment %s maybe shown", mCurrentFragment);
+            } else {
+                ft.remove(f).commit();
+
+                ft = fm.beginTransaction();
+                ft.add(R.id.container, f, ZhiUpdateListFragment.TAG);
+
+                if (mCurrentFragment != null && !mCurrentFragment.isHidden()) {
+                    ft.hide(mCurrentFragment);
+                }
+                ft.commit();
+            }
+            mCurrentFragment = f;
 
         } else if (id == R.id.nav_manage) {
 

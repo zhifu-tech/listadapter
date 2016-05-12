@@ -18,4 +18,5 @@
     <string name="image_url">_URL</string>
     <string name="image_gif">GIF</string>
     <string name="ads">ADS</string>
+    <string name="update">UPDATE</string>
 </resources>

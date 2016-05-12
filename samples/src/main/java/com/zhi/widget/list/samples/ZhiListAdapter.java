@@ -52,7 +52,7 @@ public class ZhiListAdapter extends ListAdapter {
             case VIEW_TYPE_SIMPLE_IMAGE:
             case VIEW_TYPE_SIMPLE_IMAGE_URL:
             case VIEW_TYPE_SIMPLE_IMAGE_GIF:
-                vh = of(ZhiSimpleImageViewHolder.class,
+                vh = of(ZhiNetworkImageViewHolder.class,
                         R.layout.item_simple_image, parent, inflater);
                 break;
 
